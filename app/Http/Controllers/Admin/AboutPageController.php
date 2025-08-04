@@ -118,6 +118,15 @@ class AboutPageController extends Controller
             if($object->image) {
                 FileHelper::deleteFileFromCloudflare($object->image, $object->id, ThisModel::class, 'image');
             }
+
+            if($object->image_back) {
+                FileHelper::deleteFileFromCloudflare($object->image_back, $object->id, ThisModel::class, 'image_back');
+            }
+
+            if($object->image_banner) {
+                FileHelper::deleteFileFromCloudflare($object->image_banner, $object->id, ThisModel::class, 'image_banner');
+            }
+
             $object->delete();
             $message = array(
                 "message" => "Thao tác thành công!",

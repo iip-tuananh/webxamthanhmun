@@ -58,15 +58,15 @@
                                 <div class="wptb-slider--inner">
                                     <div class="wptb-item--inner">
                                         <div class="container">
-                                            <div class="row">
-                                                <div class="col-lg-7">
-                                                    <div class="wptb-heading">
-                                                        <h1 class="wptb-item--title">{{ $banner->title }}</h1>
-                                                        <p class="wptb-item--description">{{ $banner->intro }}</p>
+{{--                                            <div class="row">--}}
+{{--                                                <div class="col-lg-7">--}}
+{{--                                                    <div class="wptb-heading">--}}
+{{--                                                        <h1 class="wptb-item--title">{{ $banner->title }}</h1>--}}
+{{--                                                        <p class="wptb-item--description">{{ $banner->intro }}</p>--}}
 
-                                                    </div>
-                                                </div>
-                                            </div>
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
                                         </div>
                                     </div>
                                 </div>

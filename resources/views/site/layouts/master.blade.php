@@ -70,7 +70,7 @@
 
 
     <!-- Cursor Effect -->
-    <script src="/site/plugins/cursor-effect/cursor-effect.js"></script>
+{{--    <script src="/site/plugins/cursor-effect/cursor-effect.js"></script>--}}
 
     <!-- Theme Custom JS -->
     <script src="/site/js/theme.js"></script>

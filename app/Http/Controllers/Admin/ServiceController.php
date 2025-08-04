@@ -226,6 +226,10 @@ class ServiceController extends Controller
                 FileHelper::deleteFileFromCloudflare($object->image, $object->id, Service::class, 'image');
             }
 
+            if ($object->image_back) {
+                FileHelper::deleteFileFromCloudflare($object->image_back, $object->id, ThisModel::class, 'image_back');
+            }
+
             if($object->galleries) {
                 foreach ($object->galleries as $gallery) {
                     FileHelper::deleteFileFromCloudflare($gallery->image, $gallery->id, ServiceGallery::class);

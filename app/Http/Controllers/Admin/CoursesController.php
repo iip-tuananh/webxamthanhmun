@@ -226,6 +226,10 @@ class CoursesController extends Controller
                 FileHelper::deleteFileFromCloudflare($object->image, $object->id, Course::class, 'image');
             }
 
+            if($object->image_back) {
+                FileHelper::deleteFileFromCloudflare($object->image_back, $object->id, Course::class, 'image_back');
+            }
+
             if($object->galleries) {
                 foreach ($object->galleries as $gallery) {
                     FileHelper::deleteFileFromCloudflare($gallery->image, $gallery->id, CourseGallery::class);

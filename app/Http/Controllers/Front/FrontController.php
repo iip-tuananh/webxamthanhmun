@@ -74,13 +74,6 @@ class FrontController extends Controller
     }
 
     public function homePage() {
-        $data['config'] = Config::getDataForEdit(1);
-        $data['videoBlock'] = VideoBlock::query()->with('image')->first();
-        $data['amenities'] = Amenities::query()->with('image')->latest()->get();
-        $data['newsBlock'] = NewsBlock::query()->with('image')->first();
-        $data['posts'] = Post::query()->with('image')->latest()->limit(5)->get();
-        $data['reviews'] = Review::query()->with('image')->latest()->get();
-
         // start
         $data['banners'] = Banner::query()->with('image')->latest()->get();
         $data['about'] = About::query()->with(['image'])->first();
@@ -90,7 +83,7 @@ class FrontController extends Controller
             ->orderBy('created_at', 'desc')->get();
         $data['gallery'] = Gallery::query()->with('image')->latest()->get();
         $data['categoriesSpecial'] = CategorySpecial::query()->with(['products' => function ($query) {
-            $query->where('status', 1);
+            $query->with('image')->where('status', 1);
         }])->orderBy('order_number')->get();
         $data['courses'] = Course::query()->with(['image'])
             ->where('show_home_page', 1)

@@ -137,8 +137,7 @@
         <div class="form-group text-center">
             <div class="main-img-preview">
                 <label for="">Ảnh sản phẩm</label>
-                <p class="help-block-img">* Ảnh định dạng: jpg, png không quá 2MB.</p>
-                <p class="help-block-img">Ảnh mặt trước (500x500px)</p>
+                <p class="help-block-img">* Ảnh định dạng: jpg, png</p>
                 <img class="thumbnail img-preview" ng-src="<% form.image.path %>">
             </div>
             <div class="input-group" style="width: 100%; text-align: center">

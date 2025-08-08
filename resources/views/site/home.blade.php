@@ -45,65 +45,119 @@
     </style>
     <main class="wrapper" ng-controller="homePage">
         <!-- Slider Section -->
-        <section class="wptb-slider style3">
-            <div class="swiper-container wptb-swiper-slider-three">
-                <!-- swiper slides -->
-                <div class="swiper-wrapper">
-                    <!-- Slide Item -->
-                    @foreach($banners as $banner)
-                        <div class="swiper-slide">
-                            <div class="wptb-slider--item">
-                                <div class="wptb-slider--image" style="background-image: url({{ $banner->image->path ?? '' }});"></div>
+{{--        <section class="wptb-slider style3">--}}
+{{--            <div class="swiper-container wptb-swiper-slider-three">--}}
+{{--                <!-- swiper slides -->--}}
+{{--                <div class="swiper-wrapper">--}}
+{{--                    <!-- Slide Item -->--}}
+{{--                    @foreach($banners as $banner)--}}
+{{--                        <div class="swiper-slide">--}}
+{{--                            <div class="wptb-slider--item">--}}
+{{--                                <div class="wptb-slider--image" style="background-image: url({{ $banner->image->path ?? '' }});"></div>--}}
 
-                                <div class="wptb-slider--inner">
-                                    <div class="wptb-item--inner">
-                                        <div class="container">
-{{--                                            <div class="row">--}}
-{{--                                                <div class="col-lg-7">--}}
-{{--                                                    <div class="wptb-heading">--}}
-{{--                                                        <h1 class="wptb-item--title">{{ $banner->title }}</h1>--}}
-{{--                                                        <p class="wptb-item--description">{{ $banner->intro }}</p>--}}
+{{--                                <div class="wptb-slider--inner">--}}
+{{--                                    <div class="wptb-item--inner">--}}
+{{--                                        <div class="container">--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <!-- Layer Image -->--}}
+{{--                                <div class="wptb-item-layer wptb-item-layer-one">--}}
+{{--                                    <img src="/site/img/slider/layer-4.png" alt="img">--}}
+{{--                                </div>--}}
 
-                                <!-- Layer Image -->
-                                <div class="wptb-item-layer wptb-item-layer-one">
-                                    <img src="/site/img/slider/layer-4.png" alt="img">
-                                </div>
+{{--                                <!-- Layer Image -->--}}
+{{--                                <div class="wptb-item-layer wptb-item-layer-two">--}}
+{{--                                    <img src="/site/img/slider/layer-5.png" alt="img">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endforeach--}}
 
-                                <!-- Layer Image -->
-                                <div class="wptb-item-layer wptb-item-layer-two">
-                                    <img src="/site/img/slider/layer-5.png" alt="img">
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+{{--                    <!-- End Slide Item -->--}}
 
-                    <!-- End Slide Item -->
+{{--                </div>--}}
+{{--            </div>--}}
 
-                </div>
+{{--            <!-- Bottom Pane -->--}}
+{{--            <div class="wptb-bottom-pane justify-content-center">--}}
+{{--                <!-- pagination dots -->--}}
+{{--                <div class="wptb-swiper-dots style2">--}}
+{{--                    <div class="swiper-pagination"></div>--}}
+{{--                </div>--}}
+
+{{--                <!-- Swiper Navigation -->--}}
+{{--                <div class="wptb-swiper-navigation style3">--}}
+{{--                    <div class="wptb-swiper-arrow swiper-button-prev"></div>--}}
+{{--                    <div class="wptb-swiper-arrow swiper-button-next"></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--        </section>--}}
+
+
+
+
+        <style>
+            /* styles.css */
+            .video-banner {
+                position: relative;
+                width: 100vw;
+                height: 100vh;  /* full viewport height */
+                overflow: hidden;
+            }
+
+
+
+            .video-wrapper {
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+            }
+
+            .video-iframe {
+                position: absolute;
+                top: 50%; left: 50%;
+                /* đảm bảo cover cả chiều rộng và chiều cao */
+                min-width: 100%;
+                min-height: 100%;
+                width: auto;
+                height: auto;
+                transform: translate(-50%, -50%);
+                border: none;
+            }
+
+
+
+
+
+        </style>
+
+
+        <section class="video-banner">
+            <div class="video-wrapper">
+                @php
+                    // Giả sử mỗi $banner có trường video_link như "https://www.youtube.com/watch?v=XYZ123"
+                    preg_match('/(?:v=|youtu\.be\/)([^&]+)/',$config->youtube, $m);
+                    $videoId = $m[1] ?? '';
+                @endphp
+                <iframe
+                    class="video-iframe"
+                    src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&mute=1&loop=1&playlist={{ $videoId }}&controls=0&showinfo=0&rel=0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen>
+                </iframe>
             </div>
 
-            <!-- Bottom Pane -->
-            <div class="wptb-bottom-pane justify-content-center">
-                <!-- pagination dots -->
-                <div class="wptb-swiper-dots style2">
-                    <div class="swiper-pagination"></div>
-                </div>
-
-                <!-- Swiper Navigation -->
-                <div class="wptb-swiper-navigation style3">
-                    <div class="wptb-swiper-arrow swiper-button-prev"></div>
-                    <div class="wptb-swiper-arrow swiper-button-next"></div>
-                </div>
+            {{-- nếu cần overlay (nút, text, layer) thì đặt ở đây --}}
+            <div class="banner-overlay">
+                <div class="unmute-button">🔊 Bật tiếng</div>
             </div>
-
         </section>
+
 
 
         <!-- khối giới thiệu -->
@@ -121,6 +175,7 @@
             }
 
         </style>
+
         <section class="wptb-about-two bg-transparent">
             <div class="container">
                 <div class="wptb-heading wow fadeInLeft"  data-wow-delay="0.3s"
@@ -128,7 +183,7 @@
                     <div class="wptb-item--inner">
                         <div class="row align-items-center">
                             <div class="col-lg-7">
-                                <h6 class="wptb-item--subtitle"><span>01 //</span>{{ $about->title_1 }}</h6>
+{{--                                <h6 class="wptb-item--subtitle"><span>01 //</span>{{ $about->title_1 }}</h6>--}}
                                 <h1 class="wptb-item--title">{{ $about->title_2 }}</h1>
                             </div>
                             <div class="col-lg-5 text-lg-end">
@@ -145,13 +200,20 @@
                     </div>
                 </div>
 
+                <style>
+                    .img-about {
+                        overflow: hidden;
+                        border-radius: 12px;
+                    }
+
+                </style>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="wptb-image-single wow fadeInUp" data-wow-delay="0.5s"
                              data-wow-duration="1.2s">
                             <div class="wptb-item--inner">
                                 <div class="wptb-item--image position-relative">
-                                    <img src="{{ $about->image->path ?? '' }}" alt="img">
+                                    <img class="img-about" src="{{ $about->image->path ?? '' }}" alt="img">
 
                                     <div class="wptb-item--button round-button">
                                         <a class="btn btn-two" href="{{ route('front.about_page') }}">
@@ -308,7 +370,7 @@
             <div class="container-full">
                 <div class="wptb-heading mb-0 wow fadeInRight">
                     <div class="wptb-item--inner text-center">
-                        <h6 class="wptb-item--subtitle"><span>02 //</span> Dịch vụ</h6>
+{{--                        <h6 class="wptb-item--subtitle"><span>02 //</span> Dịch vụ</h6>--}}
                         <h1 class="wptb-item--title lg">Các dịch vụ tại {{ $config->web_title }}</h1>
                     </div>
                 </div>
@@ -365,7 +427,7 @@
                     <div class="wptb-item--inner">
                         <div class="row align-items-center">
                             <div class="col-lg-6">
-                                <h6 class="wptb-item--subtitle"><span>03 //</span>Bộ sưu tập</h6>
+{{--                                <h6 class="wptb-item--subtitle"><span>03 //</span>Bộ sưu tập</h6>--}}
                                 <h1 class="wptb-item--title">Tác phẩm nghệ thuật</h1>
                             </div>
 
@@ -622,6 +684,14 @@
             }
 
         </style>
+
+        <style>
+            .img-product {
+                overflow: hidden;
+                border-radius: 15px;
+            }
+
+        </style>
         @foreach($categoriesSpecial as $cateSpecial)
             <section class="wptb-album-one " style="padding-top: 90px; padding-bottom: 0px"  >
                 <div class="container-full">
@@ -629,7 +699,7 @@
                     <div class="wptb-heading mb-0 wow fadeInDown" data-wow-delay="0.3s"
                          data-wow-duration="0.8s">
                         <div class="wptb-item--inner text-center">
-                            <h6 class="wptb-item--subtitle"><span>04 //</span> Các sản phẩm từ {{ $config->web_title }}</h6>
+{{--                            <h6 class="wptb-item--subtitle"><span>04 //</span> Các sản phẩm từ {{ $config->web_title }}</h6>--}}
                             <h1 class="wptb-item--title lg">{{ $cateSpecial->name }}</h1>
                         </div>
                     </div>
@@ -640,7 +710,7 @@
                                 <div class="swiper-slide">
                                     <div class="product-card">
                                         <div class="product-image-wrapper">
-                                            <img
+                                            <img class="img-product"
                                                 src="{{ $product->image->path ?? '' }}"
                                                 alt="{{ $product->name }}"
                                             />
@@ -694,7 +764,7 @@
                     <div class="wptb-item--inner">
                         <div class="row align-items-center">
                             <div class="col-lg-6">
-                                <h6 class="wptb-item--subtitle"><span>05 //</span>Khóa học</h6>
+{{--                                <h6 class="wptb-item--subtitle"><span>05 //</span>Khóa học</h6>--}}
                                 <h1 class="wptb-item--title">Khóa học</h1>
                             </div>
 
@@ -864,7 +934,7 @@
                     <div class="wptb-item--inner">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h6 class="wptb-item--subtitle"><span>06 //</span>Artist</h6>
+{{--                                <h6 class="wptb-item--subtitle"><span>06 //</span>Artist</h6>--}}
                                 <h1 class="wptb-item--title mb-lg-0">Đội ngũ thành viên<br></h1>
                             </div>
 
@@ -994,7 +1064,7 @@
                 <div class="wptb-heading wow fadeInDown" data-wow-delay="0.3s"
                      data-wow-duration="0.8s">
                     <div class="wptb-item--inner">
-                        <h6 class="wptb-item--subtitle"><span>07 //</span>Vì sao chọn chúng tôi</h6>
+{{--                        <h6 class="wptb-item--subtitle"><span>07 //</span>Vì sao chọn chúng tôi</h6>--}}
                         <h1 class="wptb-item--title mb-0">Những kinh nghiệm và thành tựu</h1>
                     </div>
                 </div>
@@ -1175,6 +1245,16 @@
 
 @endsection
 @push('scripts')
+    <script>
+        document.querySelector('.unmute-button').addEventListener('click', () => {
+            // dùng YouTube IFrame API để unmute
+            if (player && typeof player.unMute === 'function') {
+                player.unMute();
+                player.playVideo();
+                document.querySelector('.unmute-button').style.display = 'none';
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function(){

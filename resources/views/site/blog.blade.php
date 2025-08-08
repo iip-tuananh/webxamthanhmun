@@ -1,7 +1,7 @@
 @extends('site.layouts.master')
 @section('title'){{ $categoryBlog->name ?? 'Tin tức và hoạt động' }}@endsection
 @section('description'){{ strip_tags(html_entity_decode($config->introduction)) }}@endsection
-@section('image'){{ @$categoryBlog->image->path ?? '' }}
+@section('image'){{ @$config->image->path ?? '' }}
 @endsection
 
 @section('css')
@@ -9,206 +9,134 @@
 @endsection
 
 @section('content')
-    <div class="content-section parallax-section hero-section hidden-section" data-scrollax-parent="true">
-        <div class="bg par-elem " data-bg="{{ $categoryBlog->image->path ?? ($categories[0]->image->path ?? '') }}" data-scrollax="properties: { translateY: '30%' }"></div>
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="section-title">
-                <h4>Hãy tận hưởng trọn vẹn khoảnh khắc thư giãn tại khách sạn của chúng tôi.</h4>
-                <h2>{{ $categoryBlog->name ?? 'Tin tức' }}</h2>
-                <div class="section-separator"><span><i class="fa-thin fa-gem"></i></span></div>
+    <style>
+        .wptb-page-heading .wptb-item--inner {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        /* Lớp nền mờ */
+        .wptb-page-heading .wptb-item--inner::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Đen 40% mờ */
+            z-index: 1;
+        }
+
+        /* Đưa tiêu đề lên trên overlay */
+        .wptb-page-heading .wptb-item--title {
+            position: relative;
+            z-index: 2;
+            color: #fff; /* Đảm bảo chữ trắng nổi bật */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+    </style>
+    <main class="wrapper">
+        <!-- Page Header -->
+        <div class="wptb-page-heading">
+            <div class="wptb-item--inner" style="background-image: url({{ $categoryBlog->image->path ?? '' }});">
+                <div class="wptb-item-layer wptb-item-layer-one">
+                    <img src="/site/img/more/circle.png" alt="img">
+                </div>
+                <h2 class="wptb-item--title ">{{ $categoryBlog->name }}</h2>
             </div>
         </div>
-        <div class="hero-section-scroll">
-            <div class="mousey">
-                <div class="scroller"></div>
-            </div>
-        </div>
-        <div class="dec-corner dc_lb"></div>
-        <div class="dec-corner dc_rb"></div>
-        <div class="dec-corner dc_rt"></div>
-        <div class="dec-corner dc_lt"></div>
-    </div>
-    <!-- section end  -->
-    <!--content-->
-    <div class="content">
-        <!-- breadcrumbs-wrap  -->
-        <div class="breadcrumbs-wrap">
+
+        <!-- Blog Grid -->
+        <section class="wptb-blog-grid-one">
             <div class="container">
-                <a href="{{ route('front.home-page') }}">Trang chủ</a><a href="#">Tin tức</a>
-                @if($categoryBlog)
-                    <span>{{ $categoryBlog->name  }}</span>
-                @endif
 
-            </div>
-        </div>
-        <!--breadcrumbs-wrap end  -->
-        <!-- section   -->
-        <style>
-            /* 1) Grid container cho các post-item */
-            .post-items {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 24px;
-            }
+                <style>
+                    /* 1. Khung card căng 100% chiều cao của col */
+                    .wptb-blog-grid1 {
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+                    }
 
-            /* 2) Thiết lập mỗi card là flex-column */
-            .post-item {
-                display: flex;
-                flex-direction: column;
-                background: #fff;
-                /*border: 1px solid #eee;*/
-                border-radius: 8px;
-                overflow: hidden;
-            }
+                    /* 2. Khung ảnh cố định tỉ lệ 16:9 (hoặc chỉnh theo ý bạn) */
+                    .wptb-item--image {
+                        width: 100%;
+                        aspect-ratio: 16 / 9; /* nếu chưa hỗ trợ thì dùng height tĩnh như height: 200px; */
+                        overflow: hidden;
+                    }
+                    .wptb-item--image img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
 
-            /* 3) Khung ảnh cố định chiều cao, ảnh cover đầy khung */
-            .post-item_media {
-                flex: 0 0 auto;
-                height: 280px;      /* chỉnh nếu muốn cao hơn/thấp hơn */
-                overflow: hidden;
-            }
-            .post-item_media img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
+                    /* 3. Giữ phần holder co giãn, đưa meta và title xuống dưới */
+                    .wptb-item--holder {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                    }
 
-            /* 4) Nội dung co giãn, xếp theo cột */
-            .post-item_content {
-                display: flex;
-                flex-direction: column;
-                flex: 1 1 auto;
-                padding: 16px;
-            }
+                    /* 4. Giới hạn số dòng cho tiêu đề (ví dụ 2 dòng) */
+                    .wptb-item--title a {
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2; /* số dòng tối đa */
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        line-height: 1.3em; /* đảm bảo tính toán đúng chiều cao */
+                        max-height: calc(1.3em * 2); /* 2 dòng */
+                    }
 
+                    /* 1. Cho date chỉ auto width, không giãn */
+                    .wptb-blog-grid1 .wptb-item--date {
+                        display: inline-block !important;   /* đảm bảo nó không thành block-level */
+                        width: auto !important;             /* override nếu có width:100% */
+                        white-space: nowrap;                /* để date không xuống dòng */
+                        padding: 0.2em 0.6em;               /* giảm padding ngang lại cho gọn */
+                        align-self: flex-start;             /* nếu đang trong flex-column, đẩy date về bên trái */
+                    }
 
-            /* 5) Tiêu đề và metadata */
-            /*.post-item_content h3 {*/
-            /*    margin: 0 0 8px;*/
-            /*    font-size: 1.1rem;*/
-            /*    line-height: 1.3;*/
-            /*}*/
-
-            .post-item_content h3 a {
-                display: -webkit-box;
-                -webkit-line-clamp: 2;       /* ví dụ tối đa 2 dòng */
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                line-height: 1.3em;
-                height: calc(1.3em * 2);
-            }
-
-            .post-item_content .room-card-details {
-                margin-bottom: 12px;
-            }
-            .post-item_content .room-card-details ul {
-                display: flex;
-                gap: 12px;
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-            .post-item_content .room-card-details li {
-                display: flex;
-                align-items: center;
-                font-size: 0.9rem;
-                color: #666;
-            }
-            .post-item_content .room-card-details li i {
-                margin-right: 4px;
-            }
-
-            /* 6) Đoạn intro giới hạn 3 dòng, có dấu “…” */
-            .post-item_content p {
-                margin: 0;
-                display: -webkit-box;
-                -webkit-line-clamp: 4;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                line-height: 1.4;
-                min-height: calc(1.4em * 4);
-            }
-
-
-        </style>
-        <div class="content-section">
-            <div class="section-dec"></div>
-            <div class="content-dec2 fs-wrapper"></div>
-            <div class="container">
+                </style>
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div class="post-container">
-                            @if(! $blogs->count())
-                                <p>Nội dung đang được cập nhật.</p>
-                            @endif
+                    @foreach($blogs as $blog)
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="wptb-blog-grid1 active highlight wow fadeInLeft">
+                                <div class="wptb-item--inner">
+                                    <div class="wptb-item--image">
+                                        <a href="{{ route('front.blogDetail', $blog->slug) }}" class="wptb-item-link"><img src="{{ $blog->image->path ?? '' }}" alt="img"></a>
+                                    </div>
+                                    <div class="wptb-item--holder">
+                                        <div class="wptb-item--date">{{ \Illuminate\Support\Carbon::parse($blog->created_at)->format('d/m/Y') }}</div>
+                                        <h4 class="wptb-item--title" style="font-size: 1.3rem"><a href="{{ route('front.blogDetail', $blog->slug) }}" title="{{ $blog->name }}">{{ $blog->name }}</a></h4>
 
-                            @if($blogs->count())
-                                <div class="dec-container">
-                                    <div class="text-block">
-                                        <div class="post-items">
-
-                                            @foreach($blogs as $blog)
-                                                <div class="post-item">
-                                                    <div class="post-item_wrap">
-                                                        <div class="post-item_media">
-                                                            <a href="{{ route('front.blogDetail', $blog->slug) }}">
-                                                                <img src="{{ $blog->image->path ?? '' }}" alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="post-item_content">
-                                                            <h3><a href="{{ route('front.blogDetail', $blog->slug) }}">{{ $blog->name }}</a></h3>
-                                                            <div class="room-card-details">
-                                                                <ul>
-                                                                    <li><i class="fa-light fa-calendar-days"></i>
-                                                                        <span>
-                                                                        {{ \Illuminate\Support\Carbon::parse($blog->created_at)->format('d/m/Y') }}
-                                                                    </span>
-                                                                    </li>
-                                                                    <li><i class="fa-light fa-user"></i><span>Admin</span></li>
-                                                                </ul>
-                                                            </div>
-                                                            <p style="padding-bottom: 0 !important;">
-                                                                {{ $blog->intro }}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                        <div class="wptb-item--meta">
+                                            <div class="wptb-item--author">By <a href="#">{{ $blog->user_create->name ?? 'Admin' }}</a></div>
                                         </div>
                                     </div>
                                 </div>
-                            @endif
-
-                            <!-- pagination-->
-                            {{ $blogs->links('site.pagination.paginate2') }}
-                            <!-- pagination end-->
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <!-- main-sidebar -->
-                        <div class="main-sidebar fixed-bar">
-                            <div class="main-sidebar-widget">
-                                <h3>Danh mục</h3>
-                                <div class="category-widget">
-                                    <ul class="cat-item">
-                                        @foreach($categories as $cate)
-                                            <li><a href="{{ route('front.blogs', $cate->slug) }}">{{ $cate->name }}</a><span>{{ $cate->posts_count }}</span></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
                             </div>
                         </div>
-                        <!-- main-sidebar end-->
-                    </div>
+                    @endforeach
                 </div>
-            </div>
-            <div class="limit-box"></div>
-        </div>
-        <!-- section end  -->
-        <div class="content-dec"><span></span></div>
-    </div>
 
+                {{ $blogs->links('site.pagination.paginate2') }}
+
+{{--                <div class="wptb-pagination-wrap text-center">--}}
+{{--                    <ul class="pagination">--}}
+{{--                        <li><a class="disabled page-number previous" href="#"><i class="bi bi-chevron-left"></i></a></li>--}}
+{{--                        <li><span class="page-number current">1</span></li>--}}
+{{--                        <li><a class="page-number" href="#">2</a></li>--}}
+{{--                        <li><a class="page-number" href="#">3</a></li>--}}
+{{--                        <li>.....</li>--}}
+{{--                        <li><a class="page-number" href="#">9</a></li>--}}
+{{--                        <li><a class="page-number next" href="#"><i class="bi bi-chevron-right"></i></a></li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+            </div>
+        </section>
+
+    </main>
 @endsection
 
 @push('scripts')

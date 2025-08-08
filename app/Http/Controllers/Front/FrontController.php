@@ -188,14 +188,14 @@ class FrontController extends Controller
             $products = Product::query()->with(['category', 'image'])
                 ->where('status', 1)
                 ->orderBy($sortColumn, $sortDirection)
-                ->paginate(99)->appends($request->only('sort'));;
+                ->paginate(9)->appends($request->only('sort'));;
         } else {
             $category = Category::query()->with('image')->where('slug', $slug)->firstOrFail();
             $products = Product::query()->with(['category', 'image'])
                 ->where('cate_id', $category->id)
                 ->where('status', 1)
                 ->orderBy($sortColumn, $sortDirection)
-                ->paginate(99)->appends($request->only('sort'));;
+                ->paginate(9)->appends($request->only('sort'));;
         }
 
         $productsLatest = Product::query()->with(['image'])->latest()->get()->take(3);
@@ -211,25 +211,18 @@ class FrontController extends Controller
         return view('site.product_detail', compact('product', 'otherProducts'));
     }
 
-    public function blogs(Request $request, $slug = null) {
-        if ($slug) {
-            $categoryBlog = PostCategory::query()->with('image')->where('slug', $slug)->firstOrFail();
-            $blogs = Post::query()->with(['image'])
-                ->where('status', 1)
-                ->where('cate_id', $categoryBlog->id)->latest()->paginate(6);
-        } else {
-            $categoryBlog = null;
-            $blogs = Post::query()->with(['image'])
-                ->where('status', 1)->latest()->paginate(6);
-        }
+    public function blogs(Request $request, $slug) {
+        $categoryBlog = PostCategory::query()->with('image')->where('slug', $slug)->firstOrFail();
+        $blogs = Post::query()->with(['image', 'user_create'])
+            ->where('status', 1)
+            ->where('cate_id', $categoryBlog->id)->latest()->paginate(15);
+//        $banner = BannerPage::query()->with(['image'])->where('id', 5)->firstOrFail();
 
-        $categories = PostCategory::query()->withCount('posts')->where('type', 1)->get();
-
-        return view('site.blog', compact('blogs', 'categoryBlog', 'categories'));
+        return view('site.blog', compact('blogs', 'categoryBlog'));
     }
 
     public function blogDetail(Request $request, $slug) {
-        $blog = Post::query()->with(['image', 'category'])->where('slug', $slug)->firstOrFail();
+        $blog = Post::query()->with(['image', 'category', 'user_create'])->where('slug', $slug)->firstOrFail();
         $otherBlogs = Post::query()->with('image')
             ->whereNotIn('id', [$blog->id])
             ->where('status', 1)
@@ -1234,8 +1227,9 @@ class FrontController extends Controller
     }
 
     public function clearData(Request $request) {
-       File::query()->whereIn('model_type', [Room::class, RoomGallery::class])->delete();
-
-       RoomGallery::query()->delete();
+        $banner = BannerPage::query()->findOrNew(5);
+        $banner->id = 5;
+        $banner->title = 5;
+        $banner->save();
     }
 }

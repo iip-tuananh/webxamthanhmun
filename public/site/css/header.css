@@ -717,29 +717,29 @@
   font-size: 13px;
 }
 
-.mr_menu ul.main-menu > li:nth-child(1) > a::before {
-  content: '\F423';
-}
+/*.mr_menu ul.main-menu > li:nth-child(1) > a::before {*/
+/*  content: '\F423';*/
+/*}*/
 
-.mr_menu ul.main-menu > li:nth-child(2) > a::before {
-  content: '\F2CD';
-}
+/*.mr_menu ul.main-menu > li:nth-child(2) > a::before {*/
+/*  content: '\F2CD';*/
+/*}*/
 
-.mr_menu ul.main-menu > li:nth-child(3) > a::before {
-  content: '\F4CF';
-}
+/*.mr_menu ul.main-menu > li:nth-child(3) > a::before {*/
+/*  content: '\F4CF';*/
+/*}*/
 
-.mr_menu ul.main-menu > li:nth-child(4) > a::before {
-  content: '\F38B';
-}
+/*.mr_menu ul.main-menu > li:nth-child(4) > a::before {*/
+/*  content: '\F38B';*/
+/*}*/
 
-.mr_menu ul.main-menu > li:nth-child(5) > a::before {
-  content: '\F4E7';
-}
+/*.mr_menu ul.main-menu > li:nth-child(5) > a::before {*/
+/*  content: '\F4E7';*/
+/*}*/
 
-.mr_menu ul.main-menu > li:nth-child(6) > a::before {
-  content: '\F4CA';
-}
+/*.mr_menu ul.main-menu > li:nth-child(6) > a::before {*/
+/*  content: '\F4CA';*/
+/*}*/
 
 .mr_menu ul.main-menu li .submenu_opener {
   position: absolute;

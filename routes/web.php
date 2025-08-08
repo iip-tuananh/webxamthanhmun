@@ -319,6 +319,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::post('/update', 'Admin\OrderBannerController@update')->name('orderPages.update');
     });
 
+    Route::group(['prefix' => 'blog-banner'], function () {
+        Route::get('/', 'Admin\BlogBannerController@edit')->name('blogPages.edit');
+        Route::post('/update', 'Admin\BlogBannerController@update')->name('blogPages.update');
+    });
 
     Route::group(['prefix' => 'team-banner'], function () {
         Route::get('/', 'Admin\TeamBannerController@edit')->name('teamBanner.edit');

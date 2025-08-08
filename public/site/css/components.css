@@ -4082,7 +4082,7 @@ Ready Components Stylesheet
     position: relative;
     width: 100%;
 	transition: var(--transition-base);
-    padding: 30px 20px;
+    padding: 20px 10px;
 }
 /* .wptb-blog-grid1 .wptb-item--inner .wptb-item--meta {
     display: flex;

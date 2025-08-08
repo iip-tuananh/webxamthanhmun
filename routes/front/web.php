@@ -7,6 +7,9 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/chi-tiet-san-pham/{slug}','FrontController@getProductDetail')->name('front.getProductDetail');
     Route::get('/ve-chung-toi','FrontController@about_page')->name('front.about_page');
     Route::get('/thanh-vien/{id?}','FrontController@teams')->name('front.teams');
+    Route::get('/danh-muc/{slug}','FrontController@blogs')->name('front.blogs');
+    Route::get('/post/{slug}','FrontController@blogDetail')->name('front.blogDetail');
+
 
     Route::get('/gio-hang','CartController@index')->name('cart.index');
     Route::post('/{productId}/add-product-to-cart','CartController@addItem')->name('cart.add.item');
@@ -20,8 +23,6 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/rooms/','FrontController@getListRooms')->name('front.getListRooms');
     Route::get('/room/{slug}','FrontController@getRoom')->name('front.getRoom');
     Route::get('/services/{slug?}','FrontController@services')->name('front.services');
-    Route::get('/news/{slug?}','FrontController@blogs')->name('front.blogs');
-    Route::get('/news-detail/{slug}','FrontController@blogDetail')->name('front.blogDetail');
     Route::get('/contact','FrontController@contact')->name('front.contact');
     Route::post('/postContact','FrontController@postContact')->name('front.submitContact');
 

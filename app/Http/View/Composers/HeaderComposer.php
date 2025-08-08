@@ -27,6 +27,9 @@ class HeaderComposer
         $courses = Course::query()->where('status',1)->latest()->get();
         $cartItems = \Cart::getContent();
         $galleries = Gallery::query()->with('image')->latest()->get()->take(6);
+        $postCategories = PostCategory::query()
+            ->where('type',1)
+            ->orderBy('sort_order')->get();
 
         $totalPriceCart = \Cart::getTotal();
 
@@ -37,6 +40,7 @@ class HeaderComposer
             'categories' => $categories,
             'courses' => $courses,
             'galleries' => $galleries,
+            'postCategories' => $postCategories,
         ]);
     }
 }

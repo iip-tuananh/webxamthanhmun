@@ -41,6 +41,9 @@
                             </li>
 
                             <li class="menu-item"><a href="{{ route('front.teams') }}">Thành viên</a></li>
+                            @foreach($postCategories as $pCate)
+                                <li class="menu-item"><a href="{{ route('front.blogs', $pCate->slug) }}">{{ $pCate->name }}</a></li>
+                            @endforeach
                             <li class="menu-item"><a href="{{ route('front.contact') }}">Liên hệ</a></li>
 
                         </ul>

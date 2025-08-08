@@ -57,9 +57,9 @@
                                     <li>
                                         <a class="icon-grid active" id="grid-tab" data-bs-toggle="tab" href="#grid"><i class="bi bi-grid-3x3-gap-fill"></i></a>
                                     </li>
-                                    <li>
-                                        <a class="icon-list" id="list-tab" data-bs-toggle="tab" href="#list"><i class="bi bi-list-task"></i></a>
-                                    </li>
+{{--                                    <li>--}}
+{{--                                        <a class="icon-list" id="list-tab" data-bs-toggle="tab" href="#list"><i class="bi bi-list-task"></i></a>--}}
+{{--                                    </li>--}}
                                 </ul>
                                 <div class="showing_results">
                                   Tất cả sản phẩm
@@ -218,7 +218,7 @@
                                                 <div class="product_item_inner">
                                                     <div class="label_text">
                                                         <h2 class="product_item_name d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                            <a href="shop-product.html">{{ $product->name }}</a>
+                                                            <a href="{{ route('front.getProductDetail', $product->slug) }}">{{ $product->name }}</a>
                                                         </h2>
 
                                                         <div class="product_item_price"> {{ formatCurrency($product->price) }} đ</div>
@@ -234,10 +234,12 @@
                                         </div>
                                     @endforeach
 
-                                    {{ $products->links('site.pagination.paginate2') }}
                                 </div>
                             </div>
                         </div>
+
+                        {{ $products->links('site.pagination.paginate2') }}
+
                     </div>
 
                     <!-- Sidebar  -->

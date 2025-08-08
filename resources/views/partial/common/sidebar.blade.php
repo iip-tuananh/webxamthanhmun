@@ -319,30 +319,37 @@
                 </ul>
             </li>
 
-{{--            <li class="nav-item has-treeview  {{ request()->is('admin/posts') || request()->is('admin/posts/*') || request()->is('admin/post-categories') || request()->is('admin/post-categories/*') ? 'menu-open' : '' }} ">--}}
+            <li class="nav-item has-treeview  {{ request()->is('admin/posts') || request()->is('admin/posts/*') || request()->is('admin/post-categories')
+ || request()->is('admin/post-categories/*')  || request()->is('admin/blog-banner') ? 'menu-open' : '' }} ">
 
-{{--                <a href="#" class="nav-link {{ request()->is('admin/posts') || request()->is('admin/posts/*') || request()->is('admin/post-categories') || request()->is('admin/post-categories/*') ? 'active' : '' }}">--}}
-{{--                    <i class="nav-icon fas fa-blog"></i>--}}
-{{--                    <p>--}}
-{{--                        Tin tức--}}
-{{--                        <i class="fas fa-angle-left right"></i>--}}
-{{--                    </p>--}}
-{{--                </a>--}}
-{{--                <ul class="nav nav-treeview">--}}
+                <a href="#" class="nav-link {{ request()->is('admin/posts') || request()->is('admin/posts/*') || request()->is('admin/post-categories') || request()->is('admin/post-categories/*') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-blog"></i>
+                    <p>
+                        Blog
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
 {{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('PostCategory.index') }}" class="nav-link {{ Request::routeIs('PostCategory.index') ? 'active' : '' }}">--}}
+{{--                        <a href="{{ route('blogPages.edit') }}" class="nav-link {{ Request::routeIs('blogPages.edit') ? 'active' : '' }}">--}}
 {{--                            <i class="far fas  fa-angle-right nav-icon"></i>--}}
-{{--                            <p>Danh mục</p>--}}
+{{--                            <p>Cấu hình banner</p>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('Post.index') }}" class="nav-link {{ Request::routeIs('Post.index') ? 'active' : '' }}">--}}
-{{--                            <i class="far fas  fa-angle-right nav-icon"></i>--}}
-{{--                            <p>Quản lý bài viết</p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+                    <li class="nav-item">
+                        <a href="{{ route('PostCategory.index') }}" class="nav-link {{ Request::routeIs('PostCategory.index') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Danh mục</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('Post.index') }}" class="nav-link {{ Request::routeIs('Post.index') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Quản lý bài viết</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
 

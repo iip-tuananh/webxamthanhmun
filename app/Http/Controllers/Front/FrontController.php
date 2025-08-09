@@ -1227,9 +1227,6 @@ class FrontController extends Controller
     }
 
     public function clearData(Request $request) {
-        $banner = BannerPage::query()->findOrNew(5);
-        $banner->id = 5;
-        $banner->title = 5;
-        $banner->save();
+        File::query()->where('model_type', PostCategory::class)->delete();
     }
 }

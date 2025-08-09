@@ -107,6 +107,7 @@
     <!-- loader end  -->
 
     <div class="pointer bnz-pointer" id="bnz-pointer"></div>
+    <div id="translate_select"></div>
 
     @include('site.partials.header')
     @include('site.partials.mobile_menu')
@@ -165,6 +166,62 @@
         var CSRF_TOKEN = "{{ csrf_token() }}";
     </script>
 
+    <script type="text/javascript"
+            src="/site/js/elementa0d8.js?cb=googleTranslateElementInit">
+    </script>
+    <script>
+        function setActiveLang(lang) {
+            const btns = document.querySelectorAll('.lang-switch');
+            const slider = document.querySelector('.lang-toggle .slider');
+            btns.forEach(el => {
+                const isActive = (el.dataset.lang || '').toLowerCase() === lang.toLowerCase();
+                el.classList.toggle('act-lang', isActive);
+            });
+            // move slider
+            if (slider){
+                slider.style.left = (lang.toLowerCase() === 'vi') ? '2px' : 'calc(50% + 0px)';
+            }
+        }
+
+        function ensureGCombo(maxWait = 5000){
+            return new Promise((resolve, reject) => {
+                const start = Date.now();
+                (function loop(){
+                    const sel = document.querySelector('select.goog-te-combo');
+                    if (sel) return resolve(sel);
+                    if (Date.now() - start > maxWait) return reject(new Error('goog-te-combo timeout'));
+                    setTimeout(loop, 100);
+                })();
+            });
+        }
+
+        async function translateheader(lang) {
+            try {
+                localStorage.setItem('selectedLang', lang);
+                const sel = await ensureGCombo();       // chờ dropdown
+                // Map ngắn gọn nếu cần (tuỳ site bạn, Google dùng 'vi'/'en' là ổn)
+                const map = { vi: 'vi', en: 'en' };
+                sel.value = map[lang] || lang;
+
+                // bắn change theo cả 2 chuẩn
+                sel.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+                const evOld = document.createEvent('HTMLEvents'); evOld.initEvent('change', true, true); sel.dispatchEvent(evOld);
+
+                setActiveLang(lang);
+            } catch(e){
+                // Nếu chưa inject xong, thử lại
+                setTimeout(() => translateheader(lang), 200);
+            }
+        }
+
+        // Khởi tạo theo ngôn ngữ đã lưu
+        window.addEventListener('DOMContentLoaded', () => {
+            const lang = (localStorage.getItem('selectedLang') || 'vi').toLowerCase();
+            setActiveLang(lang);
+            // tuỳ chọn: tự apply dịch khi tải lại trang
+            // translateheader(lang);
+        });
+    </script>
 
     <script>
         app.controller('headerPartial', function ($rootScope, $scope, cartItemSync, $interval) {

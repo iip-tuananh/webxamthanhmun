@@ -50,7 +50,7 @@ Quản lý danh mục đặc biệt
         columns: [
             {data: 'DT_RowIndex', orderable: false, title: "STT", className: "text-center"},
             {data: 'name', title: 'Tên danh mục'},
-            {data: 'show_home_page', title: 'Hiển thị ngoài trangc chủ', className: "text-center"},
+            {data: 'show_home_page', title: 'Hiển thị ngoài trang chủ', className: "text-center"},
             {data: 'order_number', title: 'Thứ tự hiển thị', className: "text-center"},
             {data: 'updated_at', title: 'Ngày cập nhật'},
             {data: 'updated_by', title: 'Người cập nhật'},

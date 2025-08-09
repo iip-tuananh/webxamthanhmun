@@ -45,3 +45,39 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 />
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'vi',includedLanguages:'en,hi,vi,zh-CN', }, 'translate_select');
+    }
+</script>
+
+<style>
+    .VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc {
+        display: none;
+    }
+    .skiptranslate{
+        display: none;
+        top: 0;
+    }
+    .goog-te-banner-frame{display: none !important;}
+    .goog-text-highlight { background: none !important; box-shadow: none !important;}
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+
+    #goog-gt-tt{
+        display: none !important;
+    }
+    body {
+        position: revert!important;
+        top: 0px !important;
+    }
+
+    /* Ẩn các phần tử có ng-cloak */
+    [ng-cloak], .ng-cloak {
+        display: none !important;
+    }
+
+
+</style>

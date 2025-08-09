@@ -82,9 +82,12 @@ class FrontController extends Controller
             ->where('status', 1)
             ->orderBy('created_at', 'desc')->get();
         $data['gallery'] = Gallery::query()->with('image')->latest()->get();
-        $data['categoriesSpecial'] = CategorySpecial::query()->with(['products' => function ($query) {
+        $data['categoriesSpecial'] = CategorySpecial::query()
+            ->where('show_home_page', 1)
+            ->with(['products' => function ($query) {
             $query->with('image')->where('status', 1);
         }])->orderBy('order_number')->get();
+
         $data['courses'] = Course::query()->with(['image'])
             ->where('show_home_page', 1)
             ->where('status', 1)

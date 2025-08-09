@@ -50,51 +50,78 @@
                     </div>
                 </div>
 
+                <style>
+                    .header_cart .cart_icon {
+                        position: relative;
+                        display: inline-block;
+                        font-size: 1.5rem; /* chỉnh kích thước icon */
+                        color: #333;       /* chỉnh màu icon */
+                        text-decoration: none;
+                    }
+
+                    .header_cart .cart_icon i {
+                        vertical-align: middle;
+                    }
+
+                    .header_cart .cart_count {
+                        position: absolute;
+                        top: -6px;
+                        right: -6px;
+                        background: #dc3545;       /* màu badge, bạn đổi theo theme */
+                        color: #fff;
+                        font-size: 0.65rem;
+                        font-weight: bold;
+                        line-height: 1;
+                        padding: 2px 5px;
+                        border-radius: 50%;
+                        min-width: 18px;
+                        text-align: center;
+                        box-shadow: 0 0 0 1px #fff;
+                    }
+
+                </style>
+
+               <style>
+                   .lang-toggle{
+                       --h: 32px; --w: 76px; --r: 999px; --bg:#0a0a0a; --fg:#fff; --muted:#9aa0a6;
+                       position: relative; width: var(--w); height: var(--h); border-radius: var(--r);
+                       background: var(--bg); display: inline-flex; align-items: center; padding: 2px;
+                       box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
+                   }
+                   .lang-toggle .seg{
+                       z-index: 2; flex: 1 1 50%; height: calc(var(--h) - 4px); border: 0; background: transparent;
+                       color: var(--muted); font-weight: 700; font-size: 12px; letter-spacing:.4px; border-radius: var(--r);
+                       cursor: pointer; transition: color .2s ease;
+                   }
+                   .lang-toggle .seg.act-lang{ color: #0a0a0a; } /* chữ đen khi active */
+                   .lang-toggle .slider{
+                       position: absolute; z-index: 1; top: 2px; left: 2px; width: calc(50% - 2px);
+                       height: calc(var(--h) - 4px); background: var(--fg); border-radius: var(--r);
+                       transition: left .25s ease;
+                   }
+                   @media (max-width: 576px){ .lang-toggle{ --h:28px; --w:68px } .lang-toggle .seg{ font-size:11px } }
+
+               </style>
                 <!-- Right Part -->
                 <div class="header_right_part d-flex align-items-center">
-                    <div class="aside_open wptb-element">
-                        <div class="aside-open--inner">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
+                    <div class="lang-toggle wptb-element">
+                        <button class="seg seg-vi lang-switch"  type="button" data-lang="vi" onclick="translateheader('vi')">VI</button>
+                        <button class="seg seg-en lang-switch"  type="button" data-lang="en" onclick="translateheader('en')">EN</button>
+                        <span class="slider" aria-hidden="true"></span>
                     </div>
 
-                    <style>
-                        .header_cart .cart_icon {
-                            position: relative;
-                            display: inline-block;
-                            font-size: 1.5rem; /* chỉnh kích thước icon */
-                            color: #333;       /* chỉnh màu icon */
-                            text-decoration: none;
-                        }
 
-                        .header_cart .cart_icon i {
-                            vertical-align: middle;
-                        }
 
-                        .header_cart .cart_count {
-                            position: absolute;
-                            top: -6px;
-                            right: -6px;
-                            background: #dc3545;       /* màu badge, bạn đổi theo theme */
-                            color: #fff;
-                            font-size: 0.65rem;
-                            font-weight: bold;
-                            line-height: 1;
-                            padding: 2px 5px;
-                            border-radius: 50%;
-                            min-width: 18px;
-                            text-align: center;
-                            box-shadow: 0 0 0 1px #fff;
-                        }
 
-                    </style>
-{{--                    <div class="header_search wptb-element">--}}
-{{--                        <a href="#" class="modal_search_icon" data-bs-toggle="modal" data-bs-target="#modalSearch">--}}
-{{--                            <i class="bi bi-search"></i>--}}
-{{--                        </a>--}}
+{{--                    <div class="aside_open wptb-element">--}}
+{{--                        <div class="aside-open--inner">--}}
+{{--                            <span></span>--}}
+{{--                            <span></span>--}}
+{{--                            <span></span>--}}
+{{--                        </div>--}}
 {{--                    </div>--}}
+
+
                     <div class="header_cart wptb-element position-relative" style="margin-left: 10px">
                         <a href="{{ route('cart.index') }}" class="cart_icon">
                             <i class="bi bi-cart" style="color: aliceblue"></i>

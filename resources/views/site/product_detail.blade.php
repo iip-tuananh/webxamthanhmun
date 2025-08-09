@@ -137,7 +137,7 @@
 
                             <div class="product_view_bottom_credential">
                                 <ul class="px-0 mb-0">
-                                    <li class="categories"><span>Danh mục:</span> <a href="#">{{ $product->category->name ?? '' }}</a></li>
+                                    <li class="categories"><span>Danh mục:</span> <a href="{{ route('front.getListProduct', $product->category->slug) }}">{{ $product->category->name ?? '' }}</a></li>
                                     <li class="sku"><span>Tình trạng:</span> {{ $product->state == 1 ? 'Còn hàng' : 'Hết hàng' }}</li>
                                 </ul>
                             </div>

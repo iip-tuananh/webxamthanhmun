@@ -53,7 +53,7 @@
 					</span>
 				</div>
                 <div class="form-group custom-group">
-                    <label class="form-label">Twitter</label>
+                    <label class="form-label">Tiktok</label>
                     <input class="form-control" ng-model="form.twitter" type="text">
                 </div>
                 <div class="form-group custom-group">

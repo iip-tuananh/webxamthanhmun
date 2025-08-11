@@ -104,9 +104,9 @@
                </style>
                 <!-- Right Part -->
                 <div class="header_right_part d-flex align-items-center">
-                    <div class="lang-toggle wptb-element">
-                        <button class="seg seg-vi lang-switch"  type="button" data-lang="vi" onclick="translateheader('vi')">VI</button>
-                        <button class="seg seg-en lang-switch"  type="button" data-lang="en" onclick="translateheader('en')">EN</button>
+                    <div class="lang-toggle wptb-element notranslate" translate="no">
+                        <button class="seg seg-vi lang-switch notranslate"  type="button" data-lang="vi" onclick="translateheader('vi')">VI</button>
+                        <button class="seg seg-en lang-switch notranslate"  type="button" data-lang="en" onclick="translateheader('en')">EN</button>
                         <span class="slider" aria-hidden="true"></span>
                     </div>
 

@@ -97,6 +97,9 @@ class FrontController extends Controller
         $data['reviews'] = Review::query()->with('image')->latest()->get();
         $data['whyUs'] = Amenities::query()->with('image')->orderBy('order_number')->get();
 
+        $data['bannerService'] = BannerPage::query()->with('image')->find(6);
+        $data['bannerCourse'] = BannerPage::query()->with('image')->find(7);
+
         return view('site.home', $data);
     }
 
@@ -1230,6 +1233,18 @@ class FrontController extends Controller
     }
 
     public function clearData(Request $request) {
-        File::query()->where('model_type', PostCategory::class)->delete();
+        $data = [
+            [
+                'id' => 6,
+                'title' => 6,
+            ],
+
+            [
+                'id' => 7,
+                'title' => 7,
+            ],
+        ];
+
+        DB::table('banner_pages')->insert($data);
     }
 }

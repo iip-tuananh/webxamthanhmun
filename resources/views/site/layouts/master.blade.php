@@ -154,6 +154,65 @@
 
 
 
+    <script src="/site/js/callbutton.js"></script>
+
+    <div class="hidden-xs">
+
+
+
+        @if($config->click_call)
+{{--            <div onclick="window.location.href= 'tel:{{ $config->hotline }}'" class="hotline-phone-ring-wrap">--}}
+{{--                <div class="hotline-phone-ring">--}}
+{{--                    <div class="hotline-phone-ring-circle"></div>--}}
+{{--                    <div class="hotline-phone-ring-circle-fill"></div>--}}
+{{--                    <div class="hotline-phone-ring-img-circle">--}}
+{{--                        <a href="tel: {{ $config->hotline }}" class="pps-btn-img">--}}
+{{--                            <img src="/site/imgs/phone.png" alt="Gọi điện thoại" width="50" loading="lazy">--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <a href="tel:{{ $config->hotline }}">--}}
+{{--                </a>--}}
+{{--                <div class="hotline-bar"><a href="tel:{{ $config->hotline }}">--}}
+{{--                    </a><a href="tel:{{ $config->hotline }}">--}}
+{{--                        <span class="text-hotline">{{ $config->hotline }}</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+
+{{--            </div>--}}
+        @endif
+
+
+        <div class="inner-fabs show" >
+            @if($config->facebook_chat)
+                <a target="blank" href="{{ $config->twitter }}" class="fabs roundCool" id="challenges-fab"
+                >
+                    <img class="inner-fab-icon" src="/site/images/tiktok.png" alt="challenges-icon" border="0" loading="lazy">
+                </a>
+                <a target="blank" href="{{ $config->facebook }}" class="fabs roundCool" id="challenges-fab"
+                 >
+                    <img class="inner-fab-icon" src="/site/images/fb.png" alt="challenges-icon" border="0" loading="lazy">
+                </a>
+
+                <a target="blank" href="{{ $config->instagram }}" class="fabs roundCool" id="challenges-fab"
+                >
+                    <img class="inner-fab-icon" src="/site/images/ins.png" alt="challenges-icon" border="0" loading="lazy">
+                </a>
+            @endif
+            @if($config->zalo_chat)
+{{--                <a target="blank" href="https://zalo.me/{{ preg_replace('/\s+/', '', $config->zalo) }}" class="fabs roundCool" id="chat-fab"--}}
+{{--                 >--}}
+{{--                    <img class="inner-fab-icon" src="/site/imgs/icon_zalo.webp" alt="chat-active-icon" border="0" loading="lazy">--}}
+{{--                </a>--}}
+            @endif
+
+        </div>
+{{--        <div class="fabs roundCool call-animation" id="main-fab">--}}
+{{--            <img class="img-circle" src="/site/imgs/lienhe.png" alt="" width="135" loading="lazy">--}}
+{{--        </div>--}}
+
+
+    </div>
 
 
     <!-- Cursor Effect -->

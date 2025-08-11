@@ -82,6 +82,7 @@
                 description: this.description,
                 content: this.content,
                 status: this.status,
+                price: this._price,
                 show_home_page: this.show_home_page,
             }
 

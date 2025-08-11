@@ -366,6 +366,45 @@
                 }
             }
         </style>
+
+        <style>
+            /* Đảm bảo container ảnh là vị trí tham chiếu */
+            .wptb-item--image { position: relative; }
+
+            /* Badge giá: đơn giản, đen-trắng, bo tròn */
+            .svc-price-badge{
+                position:absolute; top:10px; right:10px;
+                display:flex; align-items:baseline; gap:.4rem;
+                padding:.35rem .6rem;
+                background:rgba(0,0,0,.65);
+                color:#f2f2f2;
+                border:1px solid rgba(242,242,242,.25);
+                border-radius:999px;
+                font-size:1.22rem; line-height:1.1;
+                letter-spacing:.2px;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                box-shadow:0 6px 16px rgba(0,0,0,.25);
+                z-index:3;
+            }
+
+            .svc-price-badge .svc-label{
+                text-transform:uppercase;
+                font-size:.72rem;
+                opacity:.85;
+            }
+
+            .svc-price-badge .svc-value{
+                font-weight:600;
+            }
+
+            /* Mobile: gọn hơn, ẩn nhãn để tiết kiệm diện tích */
+            @media (max-width:576px){
+                .svc-price-badge{ top:8px; right:8px; padding:.25rem .5rem; font-size:.75rem; }
+                /*.svc-price-badge .svc-label{ display:none; }*/
+            }
+
+        </style>
         <section class="wptb-album-one" style="padding: 0 !important;">
             <div class="container-full">
                 <div class="wptb-heading mb-0 wow fadeInRight">
@@ -386,6 +425,17 @@
                                         <div class="wptb-item--image">
                                             <img src="{{ $service->image->path ?? '' }}" alt="img">
                                             <a class="wptb-item--link" href="{{ route('front.getServiceDetail', $service->slug) }}"><i class="bi bi-chevron-right"></i></a>
+
+                                            @php
+                                                $price = $service->price;
+                                            @endphp
+                                            @if(!is_null($price))
+                                                <div class="svc-price-badge" aria-label="Giá tham khảo">
+                                                    <span class="svc-label">Giá tham khảo</span>
+                                                    <span class="svc-value">{{ number_format($price, 0, ',', '.') }}₫</span>
+                                                </div>
+                                            @endif
+
                                         </div>
 
                                         <div class="wptb-item--holder">
@@ -413,6 +463,103 @@
 {{--                </div>--}}
             </div>
         </section>
+
+
+
+        <style>
+            .hero-banner{
+                position:relative; width:100%;
+                min-height:clamp(280px, 48vw, 520px);
+                display:flex; align-items:center;
+                overflow:hidden;
+                margin-bottom: 60px;
+            }
+
+            /* Ảnh nền */
+            .hero-banner__media{ position:absolute; inset:0; }
+            .hero-banner__media img{
+                width:100%; height:100%; object-fit:cover; object-position:center;
+                filter:saturate(.95) contrast(1);
+            }
+
+            /* Lớp phủ tối để chữ nổi */
+            .hero-banner__overlay{
+                position:absolute; inset:0;
+                background:linear-gradient(90deg, rgba(0,0,0,.6), rgba(0,0,0,.45) 40%, rgba(0,0,0,.6));
+            }
+
+            /* Nội dung */
+            .hero-banner__content{
+                position:relative; z-index:2; color:#fff; text-align:center;
+                width:100%; max-width:1024px; margin-inline:auto;
+                padding:clamp(20px, 3vw, 48px);
+            }
+
+            .hero-title{
+                font-size:clamp(22px, 4.2vw, 38px);
+                font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+            }
+
+            .hero-subtitle{
+                margin-top:.5rem; font-size:clamp(14px, 2vw, 18px);
+                opacity:.9;
+            }
+
+            /* Nút CTA – đen trắng tối giản */
+            .btn-hero{
+                display:inline-flex; align-items:center; justify-content:center;
+                margin-top:clamp(10px, 2vw, 18px);
+                padding:.85rem 1.4rem; border-radius:999px;
+                border:1px solid #fff; color:#fff; background:transparent;
+                text-transform:uppercase; font-weight:600; letter-spacing:.4px;
+                transition:background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
+                backdrop-filter:blur(4px);
+            }
+            .btn-hero:hover{
+                background:#fff; color:#111; transform:translateY(-1px);
+                box-shadow:0 10px 24px rgba(0,0,0,.25);
+            }
+
+            /* Mobile tinh gọn */
+            @media (max-width:576px){
+                .hero-banner{ min-height:340px; }
+                .hero-subtitle{ opacity:.85; }
+            }
+
+        </style>
+
+        <section class="hero-banner wow fadeInLeft"  data-wow-delay="0.3s"
+                 data-wow-duration="0.8s" aria-label="{{ $bannerService->title }}">
+            <div class="hero-banner__media">
+                <img src="{{ $bannerService->image->path ?? asset('images/placeholder.jpg') }}"
+                     alt="{{ $bannerService->title ?? 'Banner' }}" loading="lazy">
+            </div>
+
+            <div class="hero-banner__overlay"></div>
+
+            <div class="hero-banner__content container">
+                @if(!empty($bannerService->title))
+                    <h1 class="hero-title">{{ $bannerService->title }}</h1>
+                @endif
+
+                @if(!empty($bannerService->subtitle))
+                    <p class="hero-subtitle">{{ $bannerService->subtitle }}</p>
+                @endif
+
+                @if(!empty($bannerService->link))
+                    <a class="btn-hero" href="{{ $bannerService->link }}">
+                        {{ $bannerService->text_button ?? 'Đặt lịch' }}
+                    </a>
+                @endif
+            </div>
+        </section>
+
+
+
+
+
+
+
 
         <!-- khối thư viện -->
 
@@ -898,6 +1045,49 @@
                     }
 
                 </style>
+
+                <style>
+                    /* Hàng giá tối giản đen–trắng */
+                    .course-card .course-price{
+                        display:inline-flex;
+                        align-items:baseline;
+                        gap:.45rem;
+                        margin-top:.35rem;
+                        padding:.2rem .55rem;
+                        border:1px solid rgba(0,0,0,.15);
+                        border-radius:999px;
+                        background:#fff;           /* nếu nền card tối, có thể đổi thành transparent */
+                        color:#111;
+                        font-size:.9rem;
+                        line-height:1.1;
+                        margin-bottom: 10px;
+                    }
+
+                    .course-card .course-price .cp-label{
+                        text-transform:uppercase;
+                        font-size:.72rem;
+                        letter-spacing:.2px;
+                        opacity:.65;
+                    }
+
+                    .course-card .course-price .cp-value{
+                        font-weight:600;
+                    }
+
+                    /* Dark mode ảnh nền tối: đảo màu nhanh */
+                    .course-card.dark .course-price{
+                        background:#0a0a0a;
+                        color:#f2f2f2;
+                        border-color:rgba(255,255,255,.18);
+                    }
+
+                    /* Mobile: gọn hơn */
+                    @media (max-width:576px){
+                        .course-card .course-price{ padding:.15rem .45rem; font-size:.85rem; }
+                        /*.course-card .course-price .cp-label{ display:none; } !* tiết kiệm chỗ *!*/
+                    }
+
+                </style>
                 <div class="row wow fadeInLeftBig" data-wow-delay="0.5s"
                      data-wow-duration="1.2s">
                     <div class="swiper-container swiper-course" style="padding-left: 10px; padding-right: 10px">
@@ -910,6 +1100,17 @@
                                         <a href="{{ route('front.getCourseDetail', $course->slug) }}">
                                             <h5 class="course-title">{{ $course->name }}</h5>
                                         </a>
+
+                                        @php
+                                            $price = $course->price;
+                                        @endphp
+                                        @if($price !== null)
+                                            <div class="course-price">
+                                                <span class="cp-label">Giá tham khảo</span>
+                                                <span class="cp-value">{{ number_format($price, 0, ',', '.') }}₫</span>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </div>
                             @endforeach
@@ -925,6 +1126,44 @@
 
             </div>
         </section>
+
+
+
+        <style>
+            .course-banner {
+                margin-bottom: 0;
+                margin-top: 60px;
+            }
+
+        </style>
+        <section class="hero-banner course-banner wow fadeInLeft"  data-wow-delay="0.3s"
+                 data-wow-duration="0.8s"  aria-label="{{ $bannerCourse->title }}">
+            <div class="hero-banner__media">
+                <img src="{{ $bannerCourse->image->path ?? asset('images/placeholder.jpg') }}"
+                     alt="{{ $bannerCourse->title ?? 'Banner' }}" loading="lazy">
+            </div>
+
+            <div class="hero-banner__overlay"></div>
+
+            <div class="hero-banner__content container">
+                @if(!empty($bannerCourse->title))
+                    <h1 class="hero-title">{{ $bannerCourse->title }}</h1>
+                @endif
+
+                @if(!empty($bannerCourse->subtitle))
+                    <p class="hero-subtitle">{{ $bannerCourse->subtitle }}</p>
+                @endif
+
+                @if(!empty($bannerCourse->link))
+                    <a class="btn-hero" href="{{ $bannerCourse->link }}">
+                        {{ $bannerCourse->text_button ?? 'Đặt lịch' }}
+                    </a>
+                @endif
+            </div>
+        </section>
+
+
+
 
         <!-- khối thành viên -->
         <section class="wptb-team-one" style="padding-top: 90px">
@@ -1165,7 +1404,8 @@
 
                                         <div class="col-md-12 col-lg-12 mb-4">
                                             <div class="form-group">
-                                                <textarea name="message" class="form-control" placeholder="Lời nhắn"></textarea>
+                                                <textarea name="message" class="form-control" placeholder="Lời nhắn*"></textarea>
+                                                <div class="invalid-feedback d-block" ng-if="errors['message']"><% errors['message'][0] %></div>
                                             </div>
                                         </div>
 

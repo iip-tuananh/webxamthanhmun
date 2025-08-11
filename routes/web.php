@@ -319,6 +319,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::post('/update', 'Admin\OrderBannerController@update')->name('orderPages.update');
     });
 
+    Route::group(['prefix' => 'service-banner'], function () {
+        Route::get('/', 'Admin\ServiceBannerController@edit')->name('serviceBanner.edit');
+        Route::post('/update', 'Admin\ServiceBannerController@update')->name('serviceBanner.update');
+    });
+
+    Route::group(['prefix' => 'course-banner'], function () {
+        Route::get('/', 'Admin\CourseBannerController@edit')->name('courseBanner.edit');
+        Route::post('/update', 'Admin\CourseBannerController@update')->name('courseBanner.update');
+    });
+
     Route::group(['prefix' => 'blog-banner'], function () {
         Route::get('/', 'Admin\BlogBannerController@edit')->name('blogPages.edit');
         Route::post('/update', 'Admin\BlogBannerController@update')->name('blogPages.update');

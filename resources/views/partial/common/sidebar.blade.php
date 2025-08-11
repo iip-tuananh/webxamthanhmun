@@ -26,6 +26,7 @@
 
             <li class="nav-item has-treeview  {{ request()->is('admin/abouts') || request()->is('admin/abouts*') ||  request()->is('admin/video-block/*')
 ||  request()->is('admin/news-block/*') || request()->is('admin/gallery') || request()->is('admin/register-banner')  || request()->is('admin/amenities')
+ || request()->is('admin/service-banner') || request()->is('admin/course-banner')
 ? 'menu-open' : '' }} ">
                 <a href="#" class="nav-link {{  request()->is('admin/abouts') ||  request()->is('admin/video-block') ||  request()->is('admin/news-block*') ||
  request()->is('admin/abouts*') ? 'active' : '' }}">
@@ -61,6 +62,23 @@
                         <a href="{{ route('amenities.index') }}" class="nav-link {{ Request::routeIs('amenities.index') ? 'active' : '' }}">
                             <i class="far fas  fa-angle-right nav-icon"></i>
                             <p>Khối vì sao chọn chúng tôi</p>
+                        </a>
+                    </li>
+
+
+
+
+                    <li class="nav-item">
+                        <a href="{{ route('serviceBanner.edit') }}" class="nav-link {{ Request::routeIs('serviceBanner.edit') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Khối banner dịch vụ</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('courseBanner.edit') }}" class="nav-link {{ Request::routeIs('courseBanner.edit') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Khối banner khóa học</p>
                         </a>
                     </li>
 

@@ -74,6 +74,7 @@
             let data = {
                 cate_id: this.cate_id,
                 name: this.name,
+                price: this._price,
                 description: this.description,
                 content: this.content,
                 status: this.status,

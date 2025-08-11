@@ -84,6 +84,16 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group custom-group mb-4">
+            <label class="form-label">Giá tham khảo</label>
+            <input class="form-control " type="text" ng-model="form.price">
+            <span class="invalid-feedback d-block" role="alert">
+                <strong>
+                    <% errors.price[0] %>
+                </strong>
+            </span>
+        </div>
+
+        <div class="form-group custom-group mb-4">
             <label class="form-label required-label">Trạng thái</label>
             <select id="my-select" class="form-control custom-select" ng-model="form.status">
                 <option value="">Chọn trạng thái</option>

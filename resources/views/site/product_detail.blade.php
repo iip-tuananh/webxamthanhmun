@@ -179,7 +179,7 @@
                 <h4 class="widget-title">Sản phẩm tương tự</h4>
                 <div class="product_view_grid product_col_4">
                     @foreach($otherProducts as $otherProduct)
-                        <div class="product_item">
+                        <div class="product_item" style="margin-right: 20px">
                             <div class="product_thumb">
                                 <div class="product_imagebox">
                                     <img class="primary_img" src="{{ $otherProduct->image->path ?? '' }}" alt="img">
@@ -193,7 +193,7 @@
                                     <div class="label_text">
                                         <h2 class="product_item_name d-flex align-items-center justify-content-between gap-1 flex-wrap">
                                             <a href="{{ route('front.getProductDetail', $otherProduct->slug) }}">{{ $otherProduct->name }}</a>
-                                            <span class="product_item_price">{{ formatCurrency($otherProduct->price) }} đ</span>
+                                            <span class="product_item_price" style="color: aliceblue">{{ formatCurrency($otherProduct->price) }} đ</span>
                                         </h2>
                                     </div>
                                 </div>

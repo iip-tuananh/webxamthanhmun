@@ -121,6 +121,7 @@ class ServiceController extends Controller
 			$object->status = $request->status;
 			$object->cate_id = $request->cate_id;
 			$object->show_home_page = $request->show_home_page;
+			$object->price = $request->price;
 			$object->save();
 
             FileHelper::uploadFileToCloudflare($request->image, $object->id, ThisModel::class, 'image');
@@ -184,7 +185,9 @@ class ServiceController extends Controller
 			$object->status = $request->status;
 			$object->cate_id = $request->cate_id;
 			$object->show_home_page = $request->show_home_page;
-			$object->save();
+            $object->price = $request->price;
+
+            $object->save();
 
 			if ($request->image) {
                 if ($object->image) {

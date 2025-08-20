@@ -83,6 +83,7 @@
                 introduction_eng: this.introduction_eng,
                 tax_code: this.tax_code,
                 youtube_iframe: this.youtube_iframe,
+                fax: this.fax,
             }
             data = jsonToFormData(data);
             let image = this.image.submit_data;

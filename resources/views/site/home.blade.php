@@ -141,7 +141,7 @@
             <div class="video-wrapper">
                 @php
                     // Giả sử mỗi $banner có trường video_link như "https://www.youtube.com/watch?v=XYZ123"
-                    preg_match('/(?:v=|youtu\.be\/)([^&]+)/',$config->youtube, $m);
+                    preg_match('/(?:v=|youtu\.be\/)([^&]+)/',$config->fax, $m);
                     $videoId = $m[1] ?? '';
                 @endphp
                 <iframe

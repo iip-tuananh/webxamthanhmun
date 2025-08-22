@@ -42,6 +42,7 @@ use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Jenssegers\Agent\Agent;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Validator;
 use Response;
@@ -67,10 +68,12 @@ class FrontController extends Controller
     use ResponseTrait;
 
     public $categoryService;
+    public $agent;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(Agent $agent, CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
+        $this->agent = $agent;
     }
 
     public function homePage() {
@@ -99,6 +102,14 @@ class FrontController extends Controller
 
         $data['bannerService'] = BannerPage::query()->with('image')->find(6);
         $data['bannerCourse'] = BannerPage::query()->with('image')->find(7);
+
+        $config = Config::query()->first();
+        $linkYoutube = $config->line_text_1;
+        if ($this->agent->isMobile()) {
+            $linkYoutube = $config->fax;
+        }
+
+        $data['linkYoutube'] = $linkYoutube;
 
         return view('site.home', $data);
     }

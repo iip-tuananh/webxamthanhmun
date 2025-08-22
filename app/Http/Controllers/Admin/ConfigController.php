@@ -78,6 +78,7 @@ class ConfigController extends Controller
 			$object->address = $request->address;
 			$object->tax_code = $request->tax_code;
 			$object->fax = $request->fax;
+			$object->line_text_1 = $request->line_text_1;
 
 			$object->click_call = $request->click_call;
 			$object->facebook_chat = $request->facebook_chat;

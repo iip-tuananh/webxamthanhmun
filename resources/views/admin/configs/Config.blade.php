@@ -69,6 +69,7 @@
                 youtube: this.youtube,
                 facebook: this.facebook,
                 hotline: this.hotline,
+                line_text_1: this.line_text_1,
                 address_company: this.address_company,
                 address_company_eng: this.address_company_eng,
                 address_center_insurance: this.address_center_insurance,

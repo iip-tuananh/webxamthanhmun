@@ -133,6 +133,27 @@
 
 
 
+            /*.video-wrapper {*/
+            /*    width: 100%;*/
+            /*    max-width: 480px;      !* có thể bỏ nếu muốn full width *!*/
+            /*    margin: 0 auto;*/
+            /*    position: relative;*/
+            /*    aspect-ratio: 9 / 16;  !* dọc mặc định (mobile) *!*/
+            /*}*/
+
+            /*@media (min-width: 768px) {*/
+            /*    .video-wrapper {*/
+            /*        aspect-ratio: 16 / 9; !* ngang trên màn hình lớn *!*/
+            /*    }*/
+            /*}*/
+
+            /*.video-iframe {*/
+            /*    position: absolute;*/
+            /*    inset: 0;*/
+            /*    width: 100%;*/
+            /*    height: 100%;*/
+            /*    display: block;*/
+            /*}*/
 
         </style>
 
@@ -140,10 +161,29 @@
         <section class="video-banner">
             <div class="video-wrapper">
                 @php
-                    // Giả sử mỗi $banner có trường video_link như "https://www.youtube.com/watch?v=XYZ123"
-                    preg_match('/(?:v=|youtu\.be\/)([^&]+)/',$config->fax, $m);
-                    $videoId = $m[1] ?? '';
+                    $url = $linkYoutube;
+                    $videoId = '';
+
+                    // Bắt ID từ mọi định dạng: watch?v=, youtu.be/, shorts/, embed/, v/
+                    if (preg_match('~(?:youtu\.be/|youtube\.com/(?:shorts/|embed/|v/|watch\?v=|watch\?.*?&v=))([A-Za-z0-9_-]{11})~', $url, $m)) {
+                        $videoId = $m[1];
+                    }
+
+                    // (Tuỳ chọn) bắt thời điểm bắt đầu nếu có t= hoặc start=
+                    $start = 0;
+                    if (preg_match('~[?&](?:t|start)=(\d+)~', $url, $m2)) {
+                        $start = (int) $m2[1];
+                    }
                 @endphp
+
+
+{{--                @php--}}
+{{--                    // Giả sử mỗi $banner có trường video_link như "https://www.youtube.com/watch?v=XYZ123"--}}
+{{--                    preg_match('/(?:v=|youtu\.be\/)([^&]+)/',$config->fax, $m);--}}
+{{--                    $videoId = $m[1] ?? '';--}}
+{{--                @endphp--}}
+
+
                 <iframe
                     class="video-iframe"
                     src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&mute=1&loop=1&playlist={{ $videoId }}&controls=0&showinfo=0&rel=0"

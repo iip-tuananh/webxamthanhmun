@@ -65,7 +65,14 @@
                     <input class="form-control" ng-model="form.youtube" type="text">
                 </div>
                 <div class="form-group custom-group">
-                    <label class="form-label">Link video trang chủ</label>
+                    <label class="form-label">Link video trang chủ (desktop)</label>
+                    <input class="form-control" ng-model="form.line_text_1" type="text">
+                    <span class="invalid-feedback d-block" role="alert">
+						<strong><% errors.line_text_1[0] %></strong>
+					</span>
+                </div>
+                <div class="form-group custom-group">
+                    <label class="form-label">Link video trang chủ (mobile)</label>
                     <input class="form-control" ng-model="form.fax" type="text">
                     <span class="invalid-feedback d-block" role="alert">
 						<strong><% errors.fax[0] %></strong>
